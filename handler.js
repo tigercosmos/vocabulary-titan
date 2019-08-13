@@ -18,7 +18,8 @@ const handler = async context => {
       let result = ""
       try {
         const cambridgeResult = await FetchCambridge(text);
-        result += cambridgeResult;
+        result += `【${text} ${cambridgeResult.pronunciation}】`;
+        result += cambridgeResult.result;
       } catch (e) {
         await context.sendText(e);
       }
