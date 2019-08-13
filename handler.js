@@ -4,7 +4,11 @@ const {
 } = require("./lib/cambridge");
 
 const handler = async context => {
-  if (context.event.isText) {
+  if (context.event.isFollow) {
+    await context.sendText("Hi! Enter a word to start...");
+  } else if (context.event.isJoin) {
+    await context.sendText("Hi! Enter a word to start...");
+  } else if (context.event.isText) {
     const {
       text
     } = context.event.message;
