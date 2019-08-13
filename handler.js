@@ -20,7 +20,7 @@ const handler = async context => {
       let result = ""
       try {
         const cambridgeResult = await FetchCambridge(text);
-        result += `【${text} ${cambridgeResult.pronunciation}】`;
+        result += `\`${text}\` ${cambridgeResult.pronunciation}\n`;
         result += cambridgeResult.result;
       } catch (e) {
         result += `!! ${e}\n`;
