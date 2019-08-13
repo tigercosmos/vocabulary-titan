@@ -1,7 +1,9 @@
 const {
   FetchCambridge,
-  CambridgeError
 } = require("./lib/cambridge");
+const {
+  FetchDictionaryCom,
+} = require("./lib/dictionary_com");
 
 const handler = async context => {
   if (context.event.isFollow) {
@@ -21,7 +23,14 @@ const handler = async context => {
         result += `【${text} ${cambridgeResult.pronunciation}】`;
         result += cambridgeResult.result;
       } catch (e) {
-        await context.sendText(e);
+        result += `!! ${e}\n`;
+      }
+      result += '\n';
+      try {
+        const dicRes = await FetchDictionaryCom(text);
+        result += dicRes.result;
+      } catch (e) {
+        result += `!! ${e}\n`;
       }
       await context.sendText(result);
     }
