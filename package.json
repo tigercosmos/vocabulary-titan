@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "axios": "^0.19.0",
     "body-parser": "^1.18.2",
-    "express": "^4.16.0",
-    "bottender": "latest"
+    "bottender": "latest",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.16.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
@@ -10,7 +12,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "console": "USE_CONSOLE=true node index.js"
+    "console": "USE_CONSOLE=true node index.js",
+    "test": "for FILE in ./test/*.js; do node ${FILE}; done"
   },
   "name": "dictionary-bot",
   "version": "0.0.1",
