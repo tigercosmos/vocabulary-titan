@@ -17,10 +17,9 @@ const handler = async context => {
     if (/^h(ello|i)/i.test(text)) {
       await context.sendText('Hi there!');
     } else {
-      let result = ""
+      let result = `Looking for: \`${text.trim()}\`\n`;
       try {
         const cambridgeResult = await FetchCambridge(text);
-        result += `\`${text}\` ${cambridgeResult.pronunciation}\n`;
         result += cambridgeResult.result;
       } catch (e) {
         result += `!! ${e}\n`;
