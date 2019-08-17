@@ -8,3 +8,11 @@ const content = fs.readFileSync(__dirname + "/test_data/dictionary_com-possessio
 const dic = DictionaryCom(content);
 
 console.log(dic.result);
+
+console.log("===");
+
+const content2 = fs.readFileSync(__dirname + "/test_data/dictionary_com-perplexing.html", "utf8");
+
+const dic2 = DictionaryCom(content2);
+
+console.log(dic2.result);
