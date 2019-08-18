@@ -5,17 +5,25 @@ const {
   FetchDictionaryCom,
 } = require("./lib/dictionary_com");
 
+async function platformReplyText(context, messenge) {
+  if (context.platform == 'line') {
+    await context.replyText(messenge);
+  } else {
+    await context.sendText(messenge);
+  }
+}
+
 const handler = async context => {
   if (context.event.isFollow) {
-    await context.replyText("Hi! Enter a word to start...");
+    await platformReplyText("Hi! Enter a word to start...");
   } else if (context.event.isJoin) {
-    await context.replyText("Hi! Enter a word to start...");
+    await platformReplyText("Hi! Enter a word to start...");
   } else if (context.event.isText) {
     const {
       text
     } = context.event.message;
     if (/^h(ello|i)/i.test(text)) {
-      await context.replyText('Hi there!');
+      await platformReplyText('Hi there!');
     } else {
       let result = `Looking for: \`${text.trim()}\`\n`;
       // print the Cambridge dictionary's definition
@@ -28,12 +36,12 @@ const handler = async context => {
       try {
         const dicRes = await FetchDictionaryCom(text);
 
-        const noDefMsg = "\`<Skip DictionaryCom's definition due to length limit>\`";
-        const noSynonymMsg = "\`<Skip synonyms due to length limit>\`";
-        const noOriginMsg = "\`<Skip origin due to length limit>\`";
+        const noDefMsg = "\`<Skip DictionaryCom's def: len limit>\`";
+        const noSynonymMsg = "\`<Skip syn: len limit>\`";
+        const noOriginMsg = "\`<Skip origin: len limit>\`";
 
         // print the dictionary.com's definition
-        if (result.length + dicRes.result.length < 2000 - noSynonymMsg.length) {
+        if (result.length + dicRes.result.length < 2000 - noSynonymMsg.length - noOriginMsg.length) {
           result += dicRes.result;
         } else {
           result += noDefMsg + '\n';
@@ -56,7 +64,7 @@ const handler = async context => {
         result += `!! ${e}\n`;
       }
       console.log("total length: ", result.length);
-      await context.replyText(result);
+      await platformReplyText(result);
     }
   }
 };
