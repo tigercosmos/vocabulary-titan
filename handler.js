@@ -7,15 +7,15 @@ const {
 
 const handler = async context => {
   if (context.event.isFollow) {
-    await context.sendText("Hi! Enter a word to start...");
+    await context.replyText("Hi! Enter a word to start...");
   } else if (context.event.isJoin) {
-    await context.sendText("Hi! Enter a word to start...");
+    await context.replyText("Hi! Enter a word to start...");
   } else if (context.event.isText) {
     const {
       text
     } = context.event.message;
     if (/^h(ello|i)/i.test(text)) {
-      await context.sendText('Hi there!');
+      await context.replyText('Hi there!');
     } else {
       let result = `Looking for: \`${text.trim()}\`\n`;
       // print the Cambridge dictionary's definition
