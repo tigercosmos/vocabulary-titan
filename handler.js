@@ -15,15 +15,15 @@ async function platformReplyText(context, messenge) {
 
 const handler = async context => {
   if (context.event.isFollow) {
-    await platformReplyText("Hi! Enter a word to start...");
+    await platformReplyText(context, "Hi! Enter a word to start...");
   } else if (context.event.isJoin) {
-    await platformReplyText("Hi! Enter a word to start...");
+    await platformReplyText(context, "Hi! Enter a word to start...");
   } else if (context.event.isText) {
     const {
       text
     } = context.event.message;
     if (/^h(ello|i)/i.test(text)) {
-      await platformReplyText('Hi there!');
+      await platformReplyText(context, 'Hi there!');
     } else {
       let result = `Looking for: \`${text.trim()}\`\n`;
       // print the Cambridge dictionary's definition
@@ -64,7 +64,7 @@ const handler = async context => {
         result += `!! ${e}\n`;
       }
       console.log("total length: ", result.length);
-      await platformReplyText(result);
+      await platformReplyText(context, result);
     }
   }
 };
