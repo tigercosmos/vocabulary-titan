@@ -18,30 +18,33 @@ const handler = async context => {
       await context.sendText('Hi there!');
     } else {
       let result = `Looking for: \`${text.trim()}\`\n`;
+      // print the Cambridge dictionary's definition
       try {
         const cambridgeResult = await FetchCambridge(text);
-        result += cambridgeResult.result;
+        result += cambridgeResult.result + '\n';
       } catch (e) {
         result += `!! ${e}\n`;
       }
-      result += '\n';
       try {
         const dicRes = await FetchDictionaryCom(text);
 
-        const noDefMsg = "\n<Skip dictionary.com's definition due to length limit>";
-        const noSynonymMsg = "\n<Skip synonyms due to length limit>";
-        const noOriginMsg = "\n<Skip origin due to length limit>";
+        const noDefMsg = "<Skip dictionary.com's definition due to length limit>";
+        const noSynonymMsg = "<Skip synonyms due to length limit>";
+        const noOriginMsg = "<Skip origin due to length limit>";
 
+        // print the dictionary.com's definition
         if (result.length + dicRes.result.length < 2000 - noSynonymMsg.length) {
           result += dicRes.result;
         } else {
-          result += noDefMsg;
+          result += noDefMsg + '\n';
         }
+        // print the synonyms
         if (result.length + dicRes.synonym.length < 2000 - noOriginMsg.length) {
-          result += dicRes.synonym;
+          result += dicRes.synonym + '\n';
         } else {
-          result += noSynonymMsg;
+          result += noSynonymMsg + '\n';
         }
+        // print the origin
         if (result.length + dicRes.origin.length < 2000) {
           result += dicRes.origin;
         } else {
