@@ -21,16 +21,16 @@ const handler = async context => {
       // print the Cambridge dictionary's definition
       try {
         const cambridgeResult = await FetchCambridge(text);
-        result += cambridgeResult.result + '\n';
+        result += cambridgeResult.result + '\n\n';
       } catch (e) {
         result += `!! ${e}\n`;
       }
       try {
         const dicRes = await FetchDictionaryCom(text);
 
-        const noDefMsg = "<Skip dictionary.com's definition due to length limit>";
-        const noSynonymMsg = "<Skip synonyms due to length limit>";
-        const noOriginMsg = "<Skip origin due to length limit>";
+        const noDefMsg = "\`文字範本<Skip dictionary.com's definition due to length limit>\`";
+        const noSynonymMsg = "\`<Skip synonyms due to length limit>\`";
+        const noOriginMsg = "\`<Skip origin due to length limit>\`";
 
         // print the dictionary.com's definition
         if (result.length + dicRes.result.length < 2000 - noSynonymMsg.length) {
@@ -40,7 +40,9 @@ const handler = async context => {
         }
         // print the synonyms
         if (result.length + dicRes.synonym.length < 2000 - noOriginMsg.length) {
-          result += dicRes.synonym + '\n';
+          if (dicRes.synonym.length > 0) {
+            result += dicRes.synonym + '\n';
+          }
         } else {
           result += noSynonymMsg + '\n';
         }
