@@ -28,7 +28,7 @@ const handler = async context => {
       try {
         const dicRes = await FetchDictionaryCom(text);
 
-        const noDefMsg = "\`<Skip dictionary.com's definition due to length limit>\`";
+        const noDefMsg = "\`<Skip DictionaryCom's definition due to length limit>\`";
         const noSynonymMsg = "\`<Skip synonyms due to length limit>\`";
         const noOriginMsg = "\`<Skip origin due to length limit>\`";
 
