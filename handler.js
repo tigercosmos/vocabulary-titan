@@ -56,7 +56,7 @@ const handler = async context => {
         result += `!! ${e}\n`;
       }
       console.log("total length: ", result.length);
-      await context.sendText(result);
+      await context.replyText(result);
     }
   }
 };
