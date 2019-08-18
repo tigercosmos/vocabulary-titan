@@ -27,10 +27,30 @@ const handler = async context => {
       result += '\n';
       try {
         const dicRes = await FetchDictionaryCom(text);
-        result += dicRes.result;
+
+        const noDefMsg = "\n<Skip dictionary.com's definition due to length limit>";
+        const noSynonymMsg = "\n<Skip synonyms due to length limit>";
+        const noOriginMsg = "\n<Skip origin due to length limit>";
+
+        if (result.length + dicRes.result.length < 2000 - noSynonymMsg.length) {
+          result += dicRes.result;
+        } else {
+          result += noDefMsg;
+        }
+        if (result.length + dicRes.synonym.length < 2000 - noOriginMsg.length) {
+          result += dicRes.synonym;
+        } else {
+          result += noSynonymMsg;
+        }
+        if (result.length + dicRes.origin.length < 2000) {
+          result += dicRes.origin;
+        } else {
+          result += noOriginMsg;
+        }
       } catch (e) {
         result += `!! ${e}\n`;
       }
+      console.log("total length: ", result.length);
       await context.sendText(result);
     }
   }
