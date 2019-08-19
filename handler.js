@@ -5,25 +5,34 @@ const {
   FetchDictionaryCom,
 } = require("./lib/dictionary_com");
 
-async function platformReplyText(context, messenge) {
+async function platformReplyText(context, message) {
   if (context.platform == 'line') {
-    await context.replyText(messenge);
+    await context.replyText(message);
   } else {
-    await context.sendText(messenge);
+    await context.sendText(message);
   }
 }
 
+
 const handler = async context => {
+
+  const greetingMsg = "Hi, this is Vocabulary Titan.\n" +
+    "Please enter a word to start to search.\n\n" +
+    "Engineer: 劉安齊 Liu, An-Chi\n" +
+    "https://tigercosmos.xyz/ \n" +
+    "Designer: 簡嘉彤 Jian, Jia-Tong\n" +
+    "https://www.instagram.com/atong_jtj/ \n";
+
   if (context.event.isFollow) {
-    await platformReplyText(context, "Hi! Enter a word to start...");
+    await platformReplyText(context, greetingMsg);
   } else if (context.event.isJoin) {
-    await platformReplyText(context, "Hi! Enter a word to start...");
+    await platformReplyText(context, greetingMsg);
   } else if (context.event.isText) {
     const {
       text
     } = context.event.message;
     if (/^h(ello|i)/i.test(text)) {
-      await platformReplyText(context, 'Hi there!');
+      await platformReplyText(context, greetingMsg);
     } else {
       let result = `Looking for: \`${text.trim()}\`\n`;
       // print the Cambridge dictionary's definition
@@ -63,6 +72,7 @@ const handler = async context => {
       } catch (e) {
         result += `!! ${e}\n`;
       }
+      console.log("word:", text.trim());
       console.log("total length: ", result.length);
       await platformReplyText(context, result);
     }
