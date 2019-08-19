@@ -34,20 +34,20 @@ const handler = async context => {
     if (/^h(ello|i)/i.test(text)) {
       await platformReplyText(context, greetingMsg);
     } else {
-      let result = `Looking for: \`${text.trim()}\`\n`;
+      let result = `Looking for: \`${text.trim()}\`\n---\n`;
       // print the Cambridge dictionary's definition
       try {
         const cambridgeResult = await FetchCambridge(text);
-        result += cambridgeResult.result + '\n\n';
+        result += cambridgeResult.result + '\n';
       } catch (e) {
         result += `!! ${e}\n`;
       }
       try {
         const dicRes = await FetchDictionaryCom(text);
 
-        const noDefMsg = "\`<Skip DictionaryCom's def: len limit>\`";
-        const noSynonymMsg = "\`<Skip syn: len limit>\`";
-        const noOriginMsg = "\`<Skip origin: len limit>\`";
+        const noDefMsg = "---\n<Skip DictionaryCom's def: len limit>";
+        const noSynonymMsg = "---\n<Skip syn: len limit>";
+        const noOriginMsg = "---\n<Skip origin: len limit>";
 
         // print the dictionary.com's definition
         if (result.length + dicRes.result.length < 2000 - noSynonymMsg.length - noOriginMsg.length) {
