@@ -2,9 +2,13 @@
 
 A chatbot which searches mainstream dictionaries.
 
+<img width="400px" border="0" alt="bot_home" src="https://raw.githubusercontent.com/tigercosmos/vocabulary-titan/master/img/line-preview.png">
+
 *How to use*:
 
 just enter the **word** to the chatbot.
+
+<img width="400" border="0" alt="demo1" src="https://raw.githubusercontent.com/tigercosmos/vocabulary-titan/master/img/demo1.png">
 
 **WIP** Currently only support Line, but it is designed for cross-platform.
 
