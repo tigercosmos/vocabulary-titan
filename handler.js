@@ -33,7 +33,7 @@ const handler = async context => {
     } = context.event.message;
     if (/^h(ello|i)/i.test(text)) {
       await platformReplyText(context, greetingMsg);
-    } else {
+    } else if (/^[a-zA-Z\s-]+$/.test(text)) {
       let result = `Looking for: \`${text.trim()}\`\n---\n`;
       // print the Cambridge dictionary's definition
       try {
@@ -75,6 +75,8 @@ const handler = async context => {
       console.log("word:", text.trim());
       console.log("total length: ", result.length);
       await platformReplyText(context, result);
+    } else {
+      await platformReplyText(context, "Wrong Input!");
     }
   }
 };
