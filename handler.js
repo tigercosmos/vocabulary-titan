@@ -14,6 +14,7 @@ async function platformReplyText(context, message) {
   }
 }
 
+const MAX_LENGTH = 2000;
 
 const handler = async context => {
 
@@ -56,23 +57,25 @@ const handler = async context => {
           const noOriginMsg = "---\n<Skip origin: len limit>";
 
           // print the dictionary.com's definition
-          if (result.length + dicRes.result.length < 2000 - noSynonymMsg.length - noOriginMsg.length) {
+          if (result.length + dicRes.result.length < MAX_LENGTH - noSynonymMsg.length - noOriginMsg.length) {
             result += dicRes.result;
-          } else {
+          } else if (result.length + noDefMsg.length < MAX_LENGTH) {
             result += noDefMsg + '\n';
           }
+
           // print the synonyms
-          if (result.length + dicRes.synonym.length < 2000 - noOriginMsg.length) {
+          if (result.length + dicRes.synonym.length < MAX_LENGTH - noOriginMsg.length) {
             if (dicRes.synonym.length > 0) {
               result += dicRes.synonym + '\n';
             }
-          } else {
+          } else if (result.length + noSynonymMsg.length < MAX_LENGTH) {
             result += noSynonymMsg + '\n';
           }
+
           // print the origin
-          if (result.length + dicRes.origin.length < 2000) {
+          if (result.length + dicRes.origin.length < MAX_LENGTH) {
             result += dicRes.origin;
-          } else {
+          } else if (result.length + noOriginMsg.length < MAX_LENGTH) {
             result += noOriginMsg;
           }
         } catch (e) {
