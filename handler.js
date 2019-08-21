@@ -36,9 +36,10 @@ const handler = async context => {
       await platformReplyText(context, greetingMsg);
     } else if (/^[a-zA-Z\s-]+$/.test(text)) {
       const word = text.trim();
-      let result = `Looking for: \`${word}\`\n---\n`;
+      let result = "";
 
       if (cache.get(word) === undefined) {
+        result += `Looking for: \`${word}\`\n---\n`
         // print the Cambridge dictionary's definition
         try {
           const cambridgeResult = await FetchCambridge(word);
