@@ -45,6 +45,7 @@ const handler = async context => {
           const cambridgeResult = await FetchCambridge(word);
           result += cambridgeResult.result + '\n';
         } catch (e) {
+          console.log(e);
           result += `!! ${e}\n`;
         }
         try {
@@ -75,6 +76,7 @@ const handler = async context => {
             result += noOriginMsg;
           }
         } catch (e) {
+          console.log(e);
           result += `!! ${e}\n`;
         }
         cache.set(word, result);
