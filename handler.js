@@ -35,6 +35,25 @@ const handler = async context => {
     if (/^h(ello|i)/i.test(text)) {
       await platformReplyText(context, greetingMsg);
     } else if (/^\d$/.test(text)) {
+      const data = cache.get(context.state.word);
+      if (context.state.word == "" || data === undefined) {
+        await platformReplyText(context, "Please enter new word.");
+      } else {
+        switch (text) {
+          case "1":
+            await platformReplyText(context, data.cambridge);
+            break;
+          case "2":
+            await platformReplyText(context, data.dictionary);
+            break;
+          case "3":
+            await platformReplyText(context, data.synonym);
+            break;
+          case "4":
+            await platformReplyText(context, data.origin);
+            break;
+        }
+      }
 
     } else if (/^[a-zA-Z\s-]+$/.test(text)) {
       const word = text.trim().toLowerCase();
@@ -72,8 +91,13 @@ const handler = async context => {
       } else {
         result = makeResult(cache.get(word));
       }
-      console.log("word:", word);
-      console.log("total length: ", result.length);
+      // store in session
+      context.state.word = word;
+
+      console.log("word:", word, ", total length: ", result.length);
+      const mem = process.memoryUsage();
+      console.log("Memory used: %d MB", mem.rss / 1000000);
+
       await platformReplyText(context, result);
     } else {
       await platformReplyText(context, "Wrong Input!");

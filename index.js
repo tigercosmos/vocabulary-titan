@@ -3,10 +3,20 @@ const {
   // MessengerBot,
   LineBot,
   // TelegramBot,
+  MemorySessionStore,
 } = require('bottender');
 
 const handler = require('./handler');
 const config = require('./config');
+
+// Memory session
+const MAX_ITEMS_IN_CACHE = 1000; // connection number
+const EXPIRED_IN_MINUTE = 90; // 1.5 min
+const mSession = new MemorySessionStore(MAX_ITEMS_IN_CACHE, EXPIRED_IN_MINUTE);
+
+const sessData = {
+  word: "",
+};
 
 if (process.env.USE_CONSOLE === 'true') {
   const bot = new ConsoleBot().onEvent(handler);
@@ -31,7 +41,13 @@ if (process.env.USE_CONSOLE === 'true') {
 
   const bots = {
     // messenger: new MessengerBot(config.messenger).onEvent(handler),
-    line: new LineBot(config.line).onEvent(handler),
+    line: new LineBot({
+        channelSecret: config.line.channelSecret,
+        accessToken: config.line.accessToken,
+        sessionStore: mSession,
+      })
+      .setInitialState(sessData)
+      .onEvent(handler),
     // telegram: new TelegramBot(config.telegram).onEvent(handler),
   };
 
