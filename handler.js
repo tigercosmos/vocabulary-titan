@@ -52,6 +52,9 @@ const handler = async context => {
           case "4":
             await platformReplyText(context, data.origin);
             break;
+          default:
+            await platformReplyText(context, "Enter number 1 to 4");
+            break;
         }
       }
 
