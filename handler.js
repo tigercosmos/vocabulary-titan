@@ -44,19 +44,19 @@ const handler = async context => {
             await platformReplyText(context, data.cambridge);
             break;
           case "2":
-            const result2 = data.dictionary.length < 1900 ? data.dictionary : data.dictionary.slice(0, 1980) + "... (too much) :p";
+            const result2 = data.dictionary.length < 1980 ? data.dictionary : data.dictionary.slice(0, 1980) + "... (too much) :p";
             await platformReplyText(context, result2);
             break;
           case "3":
             if (data.synonym == "") {
               await platformReplyText(context, "no synonym");
             } else {
-              const result3 = data.synonym.length < 1900 ? data.synonym : data.synonym.slice(0, 1980) + "... (too much) :p";
+              const result3 = data.synonym.length < 1980 ? data.synonym : data.synonym.slice(0, 1980) + "... (too much) :p";
               await platformReplyText(context, result3);
             }
             break;
           case "4":
-            const result4 = data.origin.length < 1900 ? data.origin : data.origin.slice(0, 1980) + "... (too much) :p";
+            const result4 = data.origin.length < 1980 ? data.origin : data.origin.slice(0, 1980) + "... (too much) :p";
             await platformReplyText(context, result4);
             break;
           default:
