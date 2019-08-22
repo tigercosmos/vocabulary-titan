@@ -44,13 +44,20 @@ const handler = async context => {
             await platformReplyText(context, data.cambridge);
             break;
           case "2":
-            await platformReplyText(context, data.dictionary);
+            const result2 = data.dictionary.length < 1900 ? data.dictionary : data.dictionary.slice(0, 1980) + "... (too much) :p";
+            await platformReplyText(context, result2);
             break;
           case "3":
-            await platformReplyText(context, data.synonym);
+            if (data.synonym == "") {
+              await platformReplyText(context, "no synonym");
+            } else {
+              const result3 = data.synonym.length < 1900 ? data.synonym : data.synonym.slice(0, 1980) + "... (too much) :p";
+              await platformReplyText(context, result3);
+            }
             break;
           case "4":
-            await platformReplyText(context, data.origin);
+            const result4 = data.origin.length < 1900 ? data.origin : data.origin.slice(0, 1980) + "... (too much) :p";
+            await platformReplyText(context, result4);
             break;
           default:
             await platformReplyText(context, "Enter number 1 to 4");
