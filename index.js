@@ -11,7 +11,7 @@ const config = require('./config');
 
 // Memory session
 const MAX_ITEMS_IN_CACHE = 1000; // connection number
-const EXPIRED_IN_MINUTE = 90; // 1.5 min
+const EXPIRED_IN_MINUTE = 10; // 10 min
 const mSession = new MemorySessionStore(MAX_ITEMS_IN_CACHE, EXPIRED_IN_MINUTE);
 
 const sessData = {
