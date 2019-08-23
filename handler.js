@@ -118,9 +118,9 @@ const handler = async context => {
 function makeResult(data) {
   const MAX_LENGTH = 2000;
 
-  const noDefMsg = "---\n<Len limit: enter \"2\" to check Dic's def>";
-  const noSynonymMsg = "---\n<Len limit: enter \"3\" to check syn>";
-  const noOriginMsg = "---\n<Len limit: enter \"4\" to check origin>";
+  const noDefMsg = "---\n<Enter number \"2\" to check Dic's def>";
+  const noSynonymMsg = "---\n<Enter number \"3\" to check synonym>";
+  const noOriginMsg = "---\n<Enter number \"4\" to check origin>";
 
   let result = `Looking for: \`${data.word}\`\n---\n`
   // print the Cambridge dictionary's definition
