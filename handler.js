@@ -41,22 +41,22 @@ const handler = async context => {
       } else {
         switch (text) {
           case "1":
-            await platformReplyText(context, data.cambridge);
+            await platformReplyText(context, data.word + '\n---\n' + data.cambridge);
             break;
           case "2":
-            const result2 = data.dictionary.length < 1980 ? data.dictionary : data.dictionary.slice(0, 1980) + "... (too much) :p";
+            const result2 = data.word + '\n' + (data.dictionary.length < 1970 ? data.dictionary : data.dictionary.slice(0, 1970) + "... (too much) :p");
             await platformReplyText(context, result2);
             break;
           case "3":
             if (data.synonym == "") {
-              await platformReplyText(context, "no synonym");
+              await platformReplyText(context, data.word + ": no synonym");
             } else {
-              const result3 = data.synonym.length < 1980 ? data.synonym : data.synonym.slice(0, 1980) + "... (too much) :p";
+              const result3 = data.word + '\n' + (data.synonym.length < 1970 ? data.synonym : data.synonym.slice(0, 1970) + "... (too much) :p");
               await platformReplyText(context, result3);
             }
             break;
           case "4":
-            const result4 = data.origin.length < 1980 ? data.origin : data.origin.slice(0, 1980) + "... (too much) :p";
+            const result4 = data.word + '\n' + (data.origin.length < 1970 ? data.origin : data.origin.slice(0, 1970) + "... (too much) :p");
             await platformReplyText(context, result4);
             break;
           default:
