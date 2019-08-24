@@ -8,4 +8,6 @@ const content = fs.readFileSync(__dirname + "/test_data/cambridge-august.html");
 
 const result = Cambridge(content);
 
-console.log(result);
+// console.log(result);
+
+console.log("test_cambridge OK!");
