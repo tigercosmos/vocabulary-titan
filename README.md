@@ -1,5 +1,7 @@
 # Vocabulary Titan
 
+[![Build Status](https://travis-ci.org/tigercosmos/vocabulary-titan.svg?branch=master)](https://travis-ci.org/tigercosmos/vocabulary-titan)
+
 A chatbot which searches mainstream dictionaries.
 
 <img width="400px" border="0" alt="bot_home" src="https://raw.githubusercontent.com/tigercosmos/vocabulary-titan/master/img/line-preview.png">
