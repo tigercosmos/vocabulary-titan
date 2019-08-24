@@ -94,7 +94,7 @@ const handler = async context => {
           data.origin = dicRes.origin;
         } catch (e) {
           console.log(e);
-          result += `!! ${e}\n`;
+          data.dictionary = `!! ${e}\n`;
         }
         cache.set(word, data);
         result = makeResult(data);
