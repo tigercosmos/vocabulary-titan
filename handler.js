@@ -5,6 +5,7 @@ const {
   FetchDictionaryCom,
 } = require("./lib/dictionary_com");
 const cache = require('./lib/cache');
+const diagnostic = require("./lib/diagnostic");
 
 async function platformReplyText(context, message) {
   if (context.platform == 'line') {
@@ -34,6 +35,12 @@ const handler = async context => {
     } = context.event.message;
     if (/^h(ello|i)/i.test(text)) {
       await platformReplyText(context, greetingMsg);
+    } else if (text == "@@@") {
+      const mem = process.memoryUsage();
+      const report = "" +
+        `Memory used: ${mem.rss / 1000000} MB\n` +
+        `Hit rate: ${diagnostic.hitRate}`;
+      await platformReplyText(context, report);
     } else if (/^\d$/.test(text)) {
       const data = cache.get(context.state.word);
       if (context.state.word == "" || data === undefined) {
@@ -80,6 +87,9 @@ const handler = async context => {
       data.word = word;
 
       if (cache.get(word) === undefined) {
+
+        diagnostic.miss();
+
         try {
           const cambridgeResult = await FetchCambridge(word);
           data.cambridge = cambridgeResult.result;
@@ -99,6 +109,7 @@ const handler = async context => {
         cache.set(word, data);
         result = makeResult(data);
       } else {
+        diagnostic.hit();
         result = makeResult(cache.get(word));
       }
       // store in session
@@ -107,6 +118,7 @@ const handler = async context => {
       console.log("word:", word, ", total length: ", result.length);
       const mem = process.memoryUsage();
       console.log("Memory used: %d MB", mem.rss / 1000000);
+      console.log("Hit Rate: %f", diagnostic.hitRate);
 
       await platformReplyText(context, result);
     } else {
