@@ -8,7 +8,7 @@ module.exports = {
     channelSecret: process.env.channelSecret,
     accessToken: process.env.accessToken,
   },
-  // telegram: {
-  //   accessToken: '__FILL_YOUR_TOKEN_HERE__',
-  // },
+  telegram: {
+    accessToken: process.env.telegramAccessToken,
+  },
 };

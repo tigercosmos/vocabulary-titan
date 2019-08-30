@@ -2,7 +2,7 @@ const {
   ConsoleBot,
   // MessengerBot,
   LineBot,
-  // TelegramBot,
+  TelegramBot,
   MemorySessionStore,
 } = require('bottender');
 
@@ -48,7 +48,12 @@ if (process.env.USE_CONSOLE === 'true') {
       })
       .setInitialState(sessData)
       .onEvent(handler),
-    // telegram: new TelegramBot(config.telegram).onEvent(handler),
+    telegram: new TelegramBot({
+        accessToken: config.telegram.accessToken,
+        sessionStore: mSession,
+      })
+      .setInitialState(sessData)
+      .onEvent(handler),
   };
 
   // registerRoutes(server, bots.messenger, {
@@ -58,7 +63,9 @@ if (process.env.USE_CONSOLE === 'true') {
   registerRoutes(server, bots.line, {
     path: '/line'
   });
-  // registerRoutes(server, bots.telegram, { path: '/telegram' });
+  registerRoutes(server, bots.telegram, {
+    path: '/telegram'
+  });
 
   const port = process.env.PORT || 8080;
   server.listen(port, () => {

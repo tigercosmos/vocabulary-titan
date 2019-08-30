@@ -10,6 +10,8 @@ const diagnostic = require("./lib/diagnostic");
 async function platformReplyText(context, message) {
   if (context.platform == 'line') {
     await context.replyText(message);
+  } else if (context.platform == "telegram") {
+    await context.sendMessage(message);
   } else {
     await context.sendText(message);
   }
