@@ -35,7 +35,7 @@ const handler = async context => {
     const {
       text
     } = context.event.message;
-    if (/^h(ello|i)|^\/start/i.test(text)) {
+    if (/^h(ello|i)/i.test(text)) {
       await platformReplyText(context, greetingMsg);
     } else if (text == "@@@") {
       const mem = process.memoryUsage();
