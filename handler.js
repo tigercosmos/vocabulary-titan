@@ -4,6 +4,9 @@ const {
 const {
   FetchDictionaryCom,
 } = require("./lib/dictionary_com");
+const {
+  FetchMW
+} = require('./lib/mw');
 const cache = require('./lib/cache');
 const diagnostic = require("./lib/diagnostic");
 
@@ -68,6 +71,10 @@ const handler = async context => {
             const result4 = data.word + '\n' + (data.origin.length < 1970 ? data.origin : data.origin.slice(0, 1970) + "... (too much) :p");
             await platformReplyText(context, result4);
             break;
+          case "5":
+            const result5 = data.word + '\n' + (data.mw_example.length < 1970 ? data.mw_example : data.mw_example.slice(0, 1970) + "... (too much) :p");
+            await platformReplyText(context, result5);
+            break;
           default:
             await platformReplyText(context, "Enter number 1 to 4");
             break;
@@ -82,6 +89,7 @@ const handler = async context => {
         word: "",
         cambridge: "",
         dictionary: "",
+        mw_example: "",
         synonym: "",
         origin: "",
       };
@@ -108,6 +116,15 @@ const handler = async context => {
           console.log(e);
           data.dictionary = `!! ${e}\n`;
         }
+
+        try {
+          const mw = await FetchMW(word);
+          data.mw_example = mw.example;
+        } catch (e) {
+          console.log(e);
+          data.mw_example = "";
+        }
+
         cache.set(word, data);
         result = makeResult(data);
       } else {
@@ -135,16 +152,24 @@ function makeResult(data) {
   const noDefMsg = "---\n<Enter number \"2\" to check Dic's def>";
   const noSynonymMsg = "---\n<Enter number \"3\" to check synonym>";
   const noOriginMsg = "---\n<Enter number \"4\" to check origin>";
+  const noMWMsg = "---\n<Enter number \"5\" to check M-W examples>";
 
   let result = `Looking for: \`${data.word}\`\n---\n`
   // print the Cambridge dictionary's definition
   result += data.cambridge + '\n';
 
   // print the dictionary.com's definition
-  if (result.length + data.dictionary.length < MAX_LENGTH - noSynonymMsg.length - noOriginMsg.length) {
+  if (result.length + data.dictionary.length < MAX_LENGTH - noMWMsg.length - noSynonymMsg.length - noOriginMsg.length) {
     result += data.dictionary;
   } else if (result.length + noDefMsg.length < MAX_LENGTH) {
     result += noDefMsg + '\n';
+  }
+
+  // print the M-W's examples
+  if (result.length + data.dictionary.length < MAX_LENGTH - noSynonymMsg.length - noOriginMsg.length) {
+    result += data.mw_example;
+  } else if (result.length + noMWMsg.length < MAX_LENGTH) {
+    result += noMWMsg + '\n';
   }
 
   // print the synonyms
