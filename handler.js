@@ -166,7 +166,7 @@ function makeResult(data) {
   }
 
   // print the M-W's examples
-  if (result.length + data.dictionary.length < MAX_LENGTH - noSynonymMsg.length - noOriginMsg.length) {
+  if (result.length + data.mw_example.length < MAX_LENGTH - noSynonymMsg.length - noOriginMsg.length) {
     result += data.mw_example;
   } else if (result.length + noMWMsg.length < MAX_LENGTH) {
     result += noMWMsg + '\n';
