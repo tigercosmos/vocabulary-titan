@@ -1,19 +1,18 @@
 {
   "dependencies": {
     "axios": "^0.19.0",
-    "body-parser": "^1.18.2",
-    "bottender": "latest",
+    "bottender": "1.0.0-alpha.22",
     "cheerio": "^1.0.0-rc.3",
-    "express": "^4.16.0",
-    "lru-cache": "^5.1.1"
+    "lru-cache": "^5.1.1",
+    "minimist": "^1.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
   },
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "console": "USE_CONSOLE=true node index.js",
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "console": "bottender start --console",
     "test": "for FILE in ./test/*.js; do node ${FILE}; done"
   },
   "name": "dictionary-bot",
