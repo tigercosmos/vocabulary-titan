@@ -4,7 +4,7 @@
     "bottender": "1.0.0-alpha.22",
     "cheerio": "^1.0.0-rc.3",
     "lru-cache": "^5.1.1",
-    "minimist": "^1.2.0"
+    "minimist": "^1.2.2"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
